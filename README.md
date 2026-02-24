@@ -1,73 +1,94 @@
 # Rately - Store Rating System
 
-A full-stack application for rating and reviewing stores.
+Rately is a full-stack platform that allows users to rate and review local businesses, helping others find the best services while providing business owners with valuable feedback and performance insights.
 
-## Deployment Guide
+## 🚀 Features
 
-This guide will help you deploy the application using MongoDB Atlas for the database, Render for the backend, and Vercel for the frontend.
+### For Customers (Normal Users)
+- **Discover Stores:** Browse a list of local businesses.
+- **Rate & Review:** Share shopping experiences with honest ratings and detailed feedback.
+- **Track History:** View and manage personal rating history.
+- **Personalized Profile:** Manage account settings and preferences.
 
-### 1. MongoDB Atlas Setup (Database)
+### For Store Owners
+- **Performance Analytics:** Visualize customer satisfaction trends through a dedicated dashboard.
+- **Feedback Management:** Read and analyze customer reviews to improve services.
 
-1.  **Create an account:** Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and sign up.
-2.  **Create a Cluster:** Follow the prompts to create a free shared cluster.
-3.  **Network Access:** In the "Network Access" tab, click "Add IP Address" and select "Allow Access From Anywhere" (0.0.0.0/0) for initial setup, or add your Render server's IP if you want more security.
-4.  **Database User:** In "Database Access", create a user with a username and password. Remember these!
-5.  **Get Connection String:** Click "Connect" -> "Drivers" -> Select Node.js. Copy the connection string. It will look like:
-    `mongodb+srv://<username>:<password>@cluster0.xxxx.mongodb.net/?retryWrites=true&w=majority`
-    *Replace `<username>` and `<password>` with the credentials you created.*
+### For System Administrators
+- **User Management:** Create, update, and manage all user accounts (Admin, Store Owner, Normal User).
+- **Store Management:** Onboard and manage store listings on the platform.
+- **System Analytics:** Overview of platform performance and growth statistics.
 
-### 2. Backend Deployment (Render)
-
-1.  **Prepare for Render:**
-    *   Ensure your code is pushed to a GitHub repository.
-2.  **Create a New Web Service:**
-    *   Log in to [Render](https://render.com/).
-    *   Click "New" -> "Web Service".
-    *   Connect your GitHub repository.
-3.  **Configure Web Service:**
-    *   **Name:** `rately-backend` (or your choice).
-    *   **Root Directory:** `backend`
-    *   **Environment:** `Node`
-    *   **Build Command:** `npm install`
-    *   **Start Command:** `npm start`
-4.  **Add Environment Variables:**
-    *   `MONGO_URI`: (Your MongoDB connection string)
-    *   `JWT_SECRET`: (A random strong string)
-    *   `CLIENT_URL`: (Your future Vercel URL, e.g., `https://rately.vercel.app`)
-    *   `NODE_ENV`: `production`
-5.  **Deploy:** Click "Create Web Service". Once deployed, copy the Render URL (e.g., `https://rately-backend.onrender.com`).
-
-### 3. Frontend Deployment (Vercel)
-
-1.  **Prepare for Vercel:**
-    *   Ensure your code is pushed to the same GitHub repository.
-2.  **Create a New Project:**
-    *   Log in to [Vercel](https://vercel.com/).
-    *   Click "Add New" -> "Project".
-    *   Import your GitHub repository.
-3.  **Configure Project:**
-    *   **Framework Preset:** `Create React App`
-    *   **Root Directory:** `frontend`
-4.  **Add Environment Variables:**
-    *   `REACT_APP_API_URL`: (Your Render Backend URL + `/api`, e.g., `https://rately-backend.onrender.com/api`)
-5.  **Deploy:** Click "Deploy".
-
----
-
-## Local Development
-
-### Backend
-1.  `cd backend`
-2.  `npm install`
-3.  Create a `.env` file based on `.env.example`.
-4.  `npm run dev`
+## 🛠️ Tech Stack
 
 ### Frontend
-1.  `cd frontend`
-2.  `npm install`
-3.  `npm start`
+- **React:** Component-based UI development.
+- **Tailwind CSS:** Modern, responsive styling.
+- **Axios:** API communication with the backend.
+- **React Router:** Client-side navigation and protected routing.
+- **Context API:** Global state management (Authentication).
 
-## Tech Stack
-- **Frontend:** React, Tailwind CSS, Axios
-- **Backend:** Node.js, Express, MongoDB, Mongoose
-- **Auth:** JWT (JSON Web Tokens)
+### Backend
+- **Node.js & Express:** Scalable server-side application framework.
+- **MongoDB & Mongoose:** NoSQL database for flexible data storage.
+- **JWT (JSON Web Tokens):** Secure authentication and authorization.
+- **CORS:** Cross-Origin Resource Sharing configuration for secure API access.
+- **Helmet & Rate Limiting:** Security middleware to protect against common vulnerabilities.
+
+## 📂 Project Structure
+
+```
+Rately/
+├── backend/                # Express API
+│   ├── config/             # Database & environment config
+│   ├── controllers/        # Business logic for routes
+│   ├── middleware/         # Auth & validation logic
+│   ├── models/             # Mongoose schemas (User, Store, Rating)
+│   ├── routes/             # API endpoint definitions
+│   └── server.js           # Entry point
+└── frontend/               # React Application
+    ├── public/             # Static assets
+    ├── src/
+    │   ├── components/     # Reusable UI & Layout components
+    │   ├── contexts/       # Auth state management
+    │   ├── pages/          # View components (Admin, User, Owner)
+    │   ├── services/       # API interaction layer
+    │   └── App.js          # Root component & Routing
+```
+
+## ⚙️ Getting Started
+
+### Prerequisites
+- Node.js (v14+)
+- MongoDB (Local or Atlas)
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd Rately-main
+   ```
+
+2. **Backend Setup:**
+   ```bash
+   cd backend
+   npm install
+   # Create a .env file based on .env.example and fill in details
+   npm run dev
+   ```
+
+3. **Frontend Setup:**
+   ```bash
+   cd frontend
+   npm install
+   # Create a .env.local file with REACT_APP_API_URL=http://localhost:5000/api
+   npm start
+   ```
+
+## 🔒 Default Admin Credentials
+- **Email:** `admin@rately.com`
+- **Password:** `Admin@123`
+
+## 📄 License
+This project is licensed under the MIT License.

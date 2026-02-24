@@ -20,8 +20,31 @@ connectDB();
 app.set('trust proxy', 1);
 
 // CORS configuration - Place before other middleware
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://rately-store-rating-system.vercel.app'
+];
+
+if (process.env.CLIENT_URL) {
+  process.env.CLIENT_URL.split(',').forEach(origin => {
+    const trimmedOrigin = origin.trim();
+    if (trimmedOrigin && !allowedOrigins.includes(trimmedOrigin)) {
+      allowedOrigins.push(trimmedOrigin);
+    }
+  });
+}
+
 const corsOptions = {
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('Origin not allowed by CORS:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
